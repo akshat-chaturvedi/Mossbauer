@@ -1,17 +1,26 @@
 from mossbauerAnalysis import Analyzer
+import logging
 
-datFile = "Iron57.TKA"
-datFile1 = "Hydrated_Iron_Sulfate.TKA"
+datFile = str(input("Enter data file: "))
+compoundName = str(input("Enter compound name (separate words with underscores): "))
 
-ps5 = Analyzer(datFile, 1024, "Iron_57", 0.0367482758621)
-ps6 = Analyzer(datFile1, 1024, "Hydrated_Iron_Sulfate", 0.0367482758621)
+# datFile1 = "Hydrated_Iron_Sulfate.TKA"
+
+ps5 = Analyzer(datFile, 1024, compoundName, 0.0367482758621)
+# ps6 = Analyzer(datFile1, 1024, "Hydrated_Iron_Sulfate", 0.0367482758621)
 
 def main():
     ps5.check_and_create_folder()
     ps5.spectrumFolder()
     ps5.spectrumPlotter()
+    logging.info(f"Analysis Successful, Compound: {ps5.compoundName}")
 
 if __name__ == "__main__":
+    logging.basicConfig(filename='MossbauerAnalysisLogs.log',
+                        encoding='utf-8',
+                        format='%(levelname)s (%(asctime)s): %(message)s (Line: %(lineno)d [%(filename)s])',
+                        datefmt='%d/%m/%Y %I:%M:%S %p',
+                        level=logging.INFO)
     main()
 
 # import matplotlib.pyplot as plt

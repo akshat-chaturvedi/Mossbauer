@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import logging
 import os
 
 class Analyzer:
@@ -19,8 +20,10 @@ class Analyzer:
     def check_and_create_folder(self):
         if not os.path.exists(self.name):
             os.makedirs(self.name)
+            logging.info(f"Folder Created for {self.compoundName}")
             print(f"Folder '{self.name}' created.")
         else:
+            logging.info(f"Folder Already Exists for {self.compoundName}")
             print(f"Folder '{self.name}' already exists.")
 
     def spectrumFolder(self):
