@@ -18,34 +18,37 @@ class Analyzer:
         self.CalibratedVelocity = calibrationVelocity
 
     def check_and_create_folder(self):
+        print(f"Analysis started for {self.compoundName}")
         if not os.path.exists(self.name):
             os.makedirs(self.name)
             logging.info(f"Folder Created for {self.compoundName}")
-            print(f"Folder '{self.name}' created.")
+            print(f"-->Folder '{self.name}' created.")
         else:
             logging.info(f"Folder Already Exists for {self.compoundName}")
-            print(f"Folder '{self.name}' already exists.")
+            print(f"-->Folder '{self.name}' already exists.")
 
     def spectrumFolder(self):
-        self.folded = self.left + self.right
+        self.folded = np.ravel(self.left + self.right)
+        foldedData = pd.DataFrame({"Counts": self.folded, "Velocity": np.linspace(-9.48105, 9.32983, len(self.folded))})
+        foldedData.to_csv(f"{self.compoundName}/{self.name}_Folded.txt", sep=",", mode="w", header=True, index=False)
 
     def spectrumPlotter(self):
 
         self.spectrumFolder()
 
         fig, ax = plt.subplots()
-        x = np.linspace(0, self.size, self.size-1)
+        x = np.linspace(0, self.size, self.size - 1)
         ax.scatter(x, self.counts, s=1)
         ax.set_ylim(min(self.counts)-100, np.sort(self.counts)[-2]+300)
         fig.savefig(f"{self.name}/rawPlot.pdf", dpi=300, bbox_inches="tight")
-        print("Raw Spectrum Plotted")
+        print("-->Raw Spectrum Plotted")
 
         fig, ax = plt.subplots()
         x1 = np.linspace(0, self.half, self.half-1)
         ax.scatter(x1, self.folded, s=1)
         ax.set_ylim(min(self.folded)-100, np.sort(self.folded)[-2]+300)
         fig.savefig(f"{self.name}/foldedPlot.pdf", dpi=300, bbox_inches="tight")
-        print("Folded Spectrum Plotted")
+        print("-->Folded Spectrum Plotted")
 
         x2 = x1 * self.CalibratedVelocity - 9.5
         x4 = np.linspace(-9.48105, 9.32983, len(self.folded))
@@ -56,6 +59,6 @@ class Analyzer:
         ax.scatter(x4, self.folded, s=1)
         ax.set_ylim(min(self.folded)-100, np.sort(self.folded)[-2]+300)
         fig.savefig(f"{self.name}/calibratedPlot.pdf", dpi=300, bbox_inches="tight")
-        print("Calibrated Folded Spectrum Plotted")
+        print("-->Calibrated Folded Spectrum Plotted")
 
         print(f"Analysis done for {self.compoundName}")
