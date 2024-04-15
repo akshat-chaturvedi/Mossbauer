@@ -29,8 +29,8 @@ class Analyzer:
 
     def spectrumFolder(self):
         self.folded = np.ravel(self.left + self.right)
-        foldedData = pd.DataFrame({"Counts": self.folded, "Velocity": np.linspace(-9.48105, 9.32983, len(self.folded))})
-        foldedData.to_csv(f"{self.compoundName}/{self.name}_Folded.txt", sep=",", mode="w", header=True, index=False)
+        foldedData = pd.DataFrame({"Velocity": np.linspace(-9.48105, 9.32983, len(self.folded)), "Counts": self.folded})
+        foldedData.to_csv(f"{self.name}/{self.name}_Folded.txt", sep=",", mode="w", header=True, index=False)
 
     def spectrumPlotter(self):
 
@@ -47,6 +47,13 @@ class Analyzer:
         x1 = np.linspace(0, self.half, self.half-1)
         ax.scatter(x1, self.folded, s=1)
         ax.set_ylim(min(self.folded)-100, np.sort(self.folded)[-2]+300)
+        centroid = np.mean(x1)
+        ax.vlines(centroid, min(self.folded)-100, np.sort(self.folded)[-2]+300, ls="-", alpha=0.5, color="red")
+        ax.vlines(x1[np.where(self.folded == min(self.folded))[0]],  min(self.folded)-100, np.sort(self.folded)[-2]+300,
+                  ls="-", alpha=0.5, color="green")
+        ax.set_title("Folded Spectrum")
+        ax.set_xlabel("Channel")
+        ax.set_ylabel("Counts")
         fig.savefig(f"{self.name}/foldedPlot.pdf", dpi=300, bbox_inches="tight")
         print("-->Folded Spectrum Plotted")
 
@@ -57,7 +64,7 @@ class Analyzer:
         ax.set_ylabel("Counts")
         ax.set_title(f"Mössbauer Spectrum for {self.compoundName}")
         ax.scatter(x4, self.folded, s=1)
-        ax.set_ylim(min(self.folded)-100, np.sort(self.folded)[-2]+300)
+        ax.set_ylim(np.sort(self.folded)[1]-100, np.sort(self.folded)[-2]+300)
         fig.savefig(f"{self.name}/calibratedPlot.pdf", dpi=300, bbox_inches="tight")
         print("-->Calibrated Folded Spectrum Plotted")
 
