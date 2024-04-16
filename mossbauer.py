@@ -15,6 +15,7 @@ def main():
     ps5.spectrumPlotter()
     logging.info(f"Analysis Successful, Compound: {ps5.compoundName}")
 
+
 if __name__ == "__main__":
     logging.basicConfig(filename='MossbauerAnalysisLogs.log',
                         encoding='utf-8',
