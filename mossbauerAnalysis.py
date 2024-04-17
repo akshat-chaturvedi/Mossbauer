@@ -40,6 +40,11 @@ class Analyzer:
         x = np.linspace(0, self.size, self.size - 1)
         ax.scatter(x, self.counts, s=1)
         ax.set_ylim(min(self.counts)-100, np.sort(self.counts)[-2]+300)
+        ax.set_title("Uncalibrated Spectrum", fontsize=16)
+        ax.set_xlabel("Channel", fontsize=14)
+        ax.set_ylabel("Counts", fontsize=14)
+        plt.tick_params(axis='y', which='major', labelsize=14)
+        plt.tick_params(axis='x', which='major', labelsize=14)
         fig.savefig(f"{self.name}/rawPlot.pdf", dpi=300, bbox_inches="tight")
         print("-->Raw Spectrum Plotted")
 

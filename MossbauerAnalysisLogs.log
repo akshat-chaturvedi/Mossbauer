@@ -74,3 +74,7 @@ INFO (15/04/2024 10:38:53 PM): Folder Already Exists for Hydrated Iron Sulfate (
 INFO (15/04/2024 10:38:54 PM): Analysis Successful, Compound: Hydrated Iron Sulfate (Line: 16 [mossbauer.py])
 INFO (15/04/2024 10:39:37 PM): Folder Already Exists for Stainless Steel (Line: 27 [mossbauerAnalysis.py])
 INFO (15/04/2024 10:39:37 PM): Analysis Successful, Compound: Stainless Steel (Line: 16 [mossbauer.py])
+INFO (16/04/2024 01:04:43 PM): Folder Already Exists for Iron 57 (Line: 27 [mossbauerAnalysis.py])
+INFO (16/04/2024 01:04:44 PM): Analysis Successful, Compound: Iron 57 (Line: 16 [mossbauer.py])
+INFO (17/04/2024 01:31:35 PM): Folder Created for Natural Iron (Line: 24 [mossbauerAnalysis.py])
+INFO (17/04/2024 01:31:36 PM): Analysis Successful, Compound: Natural Iron (Line: 16 [mossbauer.py])
